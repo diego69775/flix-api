@@ -6,11 +6,12 @@ from genero.models import Genero
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from genero.serializers import GeneroSerializer
+from genero.permissions import GeneroPermissionClass
 
 #Com django rest framework
 class GeneroCreateListView(generics.ListCreateAPIView):
     #valida o token JWT, tornando obrigatorio informar token
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, GeneroPermissionClass,)
     #retonar todos os objetos
     queryset = Genero.objects.all()
     #retonar objetos filtrado
@@ -18,7 +19,7 @@ class GeneroCreateListView(generics.ListCreateAPIView):
     serializer_class = GeneroSerializer
 
 class GeneroRetrivieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, GeneroPermissionClass,)
     queryset = Genero.objects.all()
     serializer_class = GeneroSerializer
 
